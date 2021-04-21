@@ -7,22 +7,28 @@ import play.api._
 import play.api.mvc._
 
 object TimeController extends Controller with TimeHelpers {
-  // TODO: Return an HTTP 200 plain text response containing the time.
+  // DONE: Return an HTTP 200 plain text response containing the time.
   //
   // Use the `localTime` and `timeToString` helper methods below.
-  def time = ???
+  def time = Action { _ =>
+    Ok (timeToString(localTime))
+  }
 
-  // TODO: Read in a time zone ID (a string) and return an HTTP 200
+  // DONE: Read in a time zone ID (a string) and return an HTTP 200
   // plain text response containing the localized time.
   //
   // Use the `localTimeInZone` and `timeToString` helper methods below.
-  def timeIn(zoneId: String) = ???
+  def timeIn(zoneId: String) = Action { _ =>
+    Ok (localTimeInZone(zoneId).map(timeToString).getOrElse("invalid zone?"))
+  }
 
-  // TODO: Return an HTTP 200 plain text response containing a list of
+  // DONE: Return an HTTP 200 plain text response containing a list of
   // available time zone codes.
   //
   // Use the `zoneIds` helper method below.
-  def zones = ???
+  def zones = Action { _ =>
+    Ok (zoneIds.mkString("\n"))
+  }
 }
 
 trait TimeHelpers {
